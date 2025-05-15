@@ -18,6 +18,23 @@ abstract contract RewardsManagerTargets is
 {
     /// CUSTOM TARGET FUNCTIONS - Add your own target functions here ///
 
+    function rewardsManager_accrueUser_clamped(uint256 epochId) public {
+        rewardsManager_accrueUser(epochId, address(this), _getActor());
+    }
+
+
+    function rewardsManager_accrueVault_clamped(uint256 epochId) public {
+        rewardsManager_accrueVault(epochId, address(this));
+    }
+
+    function rewardsManager_addReward_clamped(uint256 epochId, uint256 amt) public {
+        rewardsManager_addReward(epochId, address(this), _getAsset(), amt);
+    }
+
+    function rewardsManager_claimReward_clamped(uint256 epochId) public {
+        rewardsManager_claimReward(epochId, address(this), _getAsset(), _getActor());
+    }
+
 
     /// AUTO GENERATED TARGET FUNCTIONS - WARNING: DO NOT DELETE OR MODIFY THIS LINE ///
 

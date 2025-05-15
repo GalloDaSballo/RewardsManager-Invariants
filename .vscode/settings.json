@@ -1,3 +1,4 @@
 {
-    "recon.defaultFuzzer": "echidna"
+    "recon.defaultFuzzer": "echidna",
+    "recon.echidna.workers": 16
 }

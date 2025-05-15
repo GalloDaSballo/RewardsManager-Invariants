@@ -21,4 +21,9 @@ abstract contract DoomsdayTargets is
         _;
         revert("stateless");
     }
+    
+    function claim_rewards_never_reverts() public stateless {
+        uint256 epochId = rewardsManager.currentEpoch() - 1;
+        rewardsManager.claimRewardEmitting(epochId, address(this), _getAsset(), _getActor());
+    }
 }
