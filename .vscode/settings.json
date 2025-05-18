@@ -1,5 +1,5 @@
 {
     "recon.defaultFuzzer": "echidna",
-    "recon.echidna.workers": 16,
+    "recon.echidna.workers": 8,
     "recon.medusa.workers": 16
 }

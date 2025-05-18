@@ -16,6 +16,15 @@ abstract contract RewardsManagerTargets is
     BaseTargetFunctions,
     Properties
 {
+
+    /// Strict Target
+    /// We enforce only actors can have any non-zero balance
+    function rewardsManager_notifyTransfer(uint256 userFrom, uint256 userTo, uint256 amount, bool address0From, bool address0To) public asAdmin {
+        address from = address0From ? address(0) : _getActors()[userFrom % _getActors().length];
+        address to = address0To ? address(0) : _getActors()[userTo % _getActors().length];
+        rewardsManager.notifyTransfer(from, to, amount);
+    }
+
     /// CUSTOM TARGET FUNCTIONS - Add your own target functions here ///
 
     function rewardsManager_accrueUser_clamped(uint256 epochId) public {
@@ -78,9 +87,6 @@ abstract contract RewardsManagerTargets is
         rewardsManager.claimRewards(epochsToClaim, vaults, tokens, users);
     }
 
-    function rewardsManager_notifyTransfer(address from, address to, uint256 amount) public asActor {
-        rewardsManager.notifyTransfer(from, to, amount);
-    }
 
     function rewardsManager_reap(RewardsManager.OptimizedClaimParams memory params) public asActor {
         rewardsManager.reap(params);
