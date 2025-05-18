@@ -4,6 +4,8 @@ pragma solidity ^0.8.0;
 import {Asserts} from "@chimera/Asserts.sol";
 import {BeforeAfter} from "./BeforeAfter.sol";
 
+import {MockERC20} from "@recon/MockERC20.sol";
+
 abstract contract Properties is BeforeAfter, Asserts {
     // Solvency on rewards
     // Since users are the only one that can have balances
@@ -83,9 +85,10 @@ abstract contract Properties is BeforeAfter, Asserts {
         // Claim rewards for all users, sum delta balances
         uint256 totalDeltaBalances;
         for(uint256 i = 0; i < users.length; i++) {
+            uint256 balanceBefore = MockERC20(_getAsset()).balanceOf(users[i]);
             rewardsManager.claimRewardEmitting(epochId, address(this), _getAsset(), users[i]);
-            (uint256 balance, ) = rewardsManager.getBalanceAtEpoch(rewardsManager.currentEpoch(), address(this), users[i]);
-            totalDeltaBalances += balance;
+            uint256 balanceAfter = MockERC20(_getAsset()).balanceOf(users[i]);
+            totalDeltaBalances += balanceAfter - balanceBefore;
         }
 
         eq(totalDeltaBalances, rewardsForEpoch, "Total delta balances is not equal to rewards for epoch");
