@@ -67,4 +67,27 @@ abstract contract Properties is BeforeAfter, Asserts {
         (uint256 totalSupply, ) = rewardsManager.getTotalSupplyAtEpoch(rewardsManager.currentEpoch(), address(this));
         eq(totalSupply, totalShares, "Total supply is not equal to total shares");
     }
+
+    // NOTE: Inductive
+    function doomsday_sum_of_claims() public stateless {
+        uint256 epochId = rewardsManager.currentEpoch() - 1;
+        address[] memory users = _getActors();
+
+        uint256 rewardsForEpoch = rewardsManager.rewards(epochId, address(this), _getAsset());
+
+        for(uint256 i = 0; i < users.length; i++) {
+            uint256 pointsWithdrawn = rewardsManager.pointsWithdrawn(epochId, address(this), users[i], _getAsset());
+            require(pointsWithdrawn == 0, "Points withdrawn is not 0"); // Must be zero so we can check delta balances
+        }
+
+        // Claim rewards for all users, sum delta balances
+        uint256 totalDeltaBalances;
+        for(uint256 i = 0; i < users.length; i++) {
+            rewardsManager.claimRewardEmitting(epochId, address(this), _getAsset(), users[i]);
+            (uint256 balance, ) = rewardsManager.getBalanceAtEpoch(rewardsManager.currentEpoch(), address(this), users[i]);
+            totalDeltaBalances += balance;
+        }
+
+        eq(totalDeltaBalances, rewardsForEpoch, "Total delta balances is not equal to rewards for epoch");
+    }
 }
