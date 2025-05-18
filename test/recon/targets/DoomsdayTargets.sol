@@ -14,13 +14,6 @@ abstract contract DoomsdayTargets is
     BaseTargetFunctions,
     Properties
 {
-    /// Makes a handler have no side effects
-    /// The fuzzer will call this anyway, and because it reverts it will be removed from shrinking
-    /// Replace the "withGhosts" with "stateless" to make the code clean
-    modifier stateless() {
-        _;
-        revert("stateless");
-    }
     
     function claim_rewards_never_reverts() public stateless {
         uint256 epochId = rewardsManager.currentEpoch() - 1;

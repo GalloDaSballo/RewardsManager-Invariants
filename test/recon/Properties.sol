@@ -47,7 +47,7 @@ abstract contract Properties is BeforeAfter, Asserts {
     }
 
     // DOOMSDAY
-    function doomsday_accrual_logic_is_sound() public {
+    function doomsday_accrual_logic_is_sound() public stateless {
         // Accrue all users
         address[] memory users = _getActors();
         for(uint256 i = 0; i < users.length; i++) {

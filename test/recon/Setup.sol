@@ -43,4 +43,12 @@ abstract contract Setup is BaseSetup, ActorManager, AssetManager, Utils {
         vm.prank(address(_getActor()));
         _;
     }
+
+    /// Makes a handler have no side effects
+    /// The fuzzer will call this anyway, and because it reverts it will be removed from shrinking
+    /// Replace the "withGhosts" with "stateless" to make the code clean
+    modifier stateless() {
+        _;
+        revert("stateless");
+    }
 }
