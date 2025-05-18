@@ -1,5 +1,7 @@
 {
     "recon.defaultFuzzer": "echidna",
     "recon.echidna.workers": 8,
-    "recon.medusa.workers": 16
+    "recon.medusa.workers": 16,
+    "recon.echidna.mode": "assertion",
+    "recon.echidna.testLimit": 10000000000
 }

@@ -57,6 +57,7 @@ abstract contract RewardsManagerTargets is
 
     function rewardsManager_addBulkRewards(uint256 epochStart, uint256 epochEnd, address vault, address token, uint256[] memory amounts) public asActor {
         rewardsManager.addBulkRewards(epochStart, epochEnd, vault, token, amounts);
+        t(false, "addBulkRewards");
     }
 
     function rewardsManager_addBulkRewardsLinearly(uint256 epochStart, uint256 epochEnd, address vault, address token, uint256 total) public asActor {
@@ -69,6 +70,7 @@ abstract contract RewardsManagerTargets is
 
     function rewardsManager_claimBulkTokensOverMultipleEpochs(uint256 epochStart, uint256 epochEnd, address vault, address[] memory tokens, address user) public asActor {
         rewardsManager.claimBulkTokensOverMultipleEpochs(epochStart, epochEnd, vault, tokens, user);
+        t(false, "claimBulkTokensOverMultipleEpochs");
     }
 
     function rewardsManager_claimReward(uint256 epochId, address vault, address token, address user) public asActor {
@@ -90,9 +92,11 @@ abstract contract RewardsManagerTargets is
 
     function rewardsManager_reap(RewardsManager.OptimizedClaimParams memory params) public asActor {
         rewardsManager.reap(params);
+        t(false, "reap");
     }
 
     function rewardsManager_tear(RewardsManager.OptimizedClaimParams memory params) public asActor {
         rewardsManager.tear(params);
+        t(false, "tear");
     }
 }

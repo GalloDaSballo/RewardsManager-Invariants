@@ -23,4 +23,51 @@ contract CryticToFoundry is Test, TargetFunctions, FoundryAsserts {
     }   		
 
 
+
+    // forge test --match-test test_canary_totalSupply_atEpoch_rpdb -vvv
+    function test_canary_totalSupply_atEpoch_rpdb() public {
+    
+        rewardsManager_notifyTransfer(0,0,1,true,false);
+    
+        canary_totalSupply_atEpoch();
+    
+    }
+
+// forge test --match-test test_rewardsManager_tear)_8yd0 -vvv
+    function test_rewardsManager_tear)_8yd0() public {
+    
+        add_new_asset(0);
+    
+        add_new_asset(0);
+    
+        add_new_asset(0);
+    
+        vm.warp(block.timestamp + 618098);
+    
+        vm.roll(block.number + 32350);
+    
+        add_new_asset(0);
+    
+        add_new_asset(0);
+    
+        add_new_asset(0);
+    
+        add_new_asset(0);
+    
+        add_new_asset(0);
+    
+        add_new_asset(0);
+    
+        add_new_asset(0);
+    
+    }
+
+// forge test --match-test test_rewardsManager_claimBulkTokensOverMultipleEpochs_1gh3 -vvv
+    function test_rewardsManager_claimBulkTokensOverMultipleEpochs_1gh3() public {
+    
+        vm.warp(block.timestamp + 605679);
+    
+        vm.roll(block.number + 1);
+    
+    }
 }
